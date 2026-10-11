@@ -31,5 +31,9 @@ def add_expense(category, amount, description, date_str=None):
     data["expenses"].append(expense)
     
     save_data(data)
+    
+def get_all_expenses():
+    data=load_data()
+    return data["expenses"]
         
     
