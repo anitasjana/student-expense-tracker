@@ -1,4 +1,4 @@
-from utils import add_expense , get_all_expenses
+from utils import add_expense , get_all_expenses , set_budget ,get_budget, get_total_expenses,get_remaining_budget
 
 def main():
     print("=== student expence tracker ===")
@@ -6,9 +6,11 @@ def main():
     while True:
         print("\n1. Add expense")
         print("2. View all expenses")
-        print("3. Exit")
+        print("3. View Summary(Total, budget, remaining)")
+        print("4. set budget")
+        print("5. Exit")
     
-        choice = input("enter your choice (1/2/3) : ").strip()
+        choice = input("enter your choice (1/2/3/4/5) : ").strip()
         
         if choice=="1":
             category=input("Category (e.g. Food,Travel,Books):").strip()
@@ -42,9 +44,33 @@ def main():
                     print("-"*30)
                     
         elif choice=="3":
+            total = get_total_expenses()
+            budget = get_budget()
+            expenses = get_remaining_budget()
+            remaining = get_remaining_budget()
+            
+            print("=== Summary ===")
+            print("Totak Expenses",total)
+            print("Budget",budget)
+            print("Remaining",remaining)
+            
+        elif choice=="4":
+            while True:
+                budget_str=input("enter budget (R.S.)").strip()
+                try:
+                    budget=float(budget_str)
+                except ValueError:
+                    print("Please enter a valid number for budget.")
+                    
+                set_budget(budget)
+                
+                print("Budget set successfully")
+                print("Current budget : ",get_budget())
+                
+        elif choice =="5":
             print("Goodbye")
             break
-        
+                    
         else:
             print("Invalid choice, please try again.")
         

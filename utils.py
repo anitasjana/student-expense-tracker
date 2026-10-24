@@ -35,5 +35,26 @@ def add_expense(category, amount, description, date_str=None):
 def get_all_expenses():
     data=load_data()
     return data["expenses"]
-        
+
+def set_budget(amount):
+    data=load_data()
+    data["budget"]=amount
+    save_data(data)
+
+def get_budget():
+    data=load_data()
+    return data["budget"]
+
+def get_total_expenses():
+    data=load_data()
+    total=0
+    for exp in data["expenses"]:
+        total+=exp["amount"]
+        return total
+    
+def get_remaining_budget():
+    budget=get_budget()
+    total=get_total_expenses()
+    return budget - total
+    
     
