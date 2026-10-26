@@ -1,4 +1,4 @@
-from utils import add_expense , get_all_expenses , set_budget ,get_budget, get_total_expenses,get_remaining_budget
+from utils import add_expense , get_all_expenses , set_budget ,get_budget, get_total_expenses,get_remaining_budget,get_expenses_by_category
 
 def main():
     print("=== student expence tracker ===")
@@ -48,11 +48,19 @@ def main():
             budget = get_budget()
             expenses = get_remaining_budget()
             remaining = get_remaining_budget()
+            category_totals=get_expenses_by_category()
             
             print("=== Summary ===")
             print("Totak Expenses",total)
             print("Budget",budget)
             print("Remaining",remaining)
+            
+            print("\nCategory-wise expenses:")
+            if not category_totals:
+                print("No expenses yet.")
+            else:
+                for category, amount in category_totals.items():
+                    print(category, ":", amount)
             
         elif choice=="4":
             while True:

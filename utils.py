@@ -57,4 +57,16 @@ def get_remaining_budget():
     total=get_total_expenses()
     return budget - total
     
+def get_expenses_by_category():
+    data=load_data()
+    category_totals={}
     
+    for exp in data["expenses"]:
+        category=exp["category"]
+        amount=exp["amount"]
+        
+        if category in category_totals:
+            category_totals[category] +=amount
+        else:
+            category_totals[category] = amount
+    return category_totals
