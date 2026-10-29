@@ -1,4 +1,4 @@
-from utils import add_expense , get_all_expenses , set_budget ,get_budget, get_total_expenses,get_remaining_budget,get_expenses_by_category
+from utils import add_expense , get_all_expenses , set_budget ,get_budget, get_total_expenses,get_remaining_budget,get_expenses_by_category,export_expenses_to_csv
 
 def main():
     print("=== student expence tracker ===")
@@ -9,8 +9,9 @@ def main():
         print("3. View Summary(Total, budget, remaining)")
         print("4. set budget")
         print("5. Exit")
+        print("6. Export expenses to CSV")
     
-        choice = input("enter your choice (1/2/3/4/5) : ").strip()
+        choice = input("enter your choice (1/2/3/4/5/6) : ").strip()
         
         if choice=="1":
             category=input("Category (e.g. Food,Travel,Books):").strip()
@@ -78,6 +79,10 @@ def main():
         elif choice =="5":
             print("Goodbye")
             break
+        
+        elif choice=="6":
+            filename=export_expenses_to_csv()
+            print("Expences exported to :",filename)
                     
         else:
             print("Invalid choice, please try again.")
