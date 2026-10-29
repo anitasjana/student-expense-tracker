@@ -1,7 +1,7 @@
 from utils import add_expense , get_all_expenses , set_budget ,get_budget, get_total_expenses,get_remaining_budget,get_expenses_by_category,export_expenses_to_csv
 
 def main():
-    print("=== student expence tracker ===")
+    print("=== Student Expense Tracker ===")
     
     while True:
         print("\n1. Add expense")
@@ -13,22 +13,33 @@ def main():
     
         choice = input("enter your choice (1/2/3/4/5/6) : ").strip()
         
-        if choice=="1":
-            category=input("Category (e.g. Food,Travel,Books):").strip()
-            
+        if choice=="1":       
             while True:
+                category=input("Category (e.g. Food,Travel,Books):").strip()
+                if category:
+                    break
+                print("Category cannot be empty.")
+                
+            while True:     
                 amount_str=input("Amount (price): ").strip()
                 try:
                     amount=float(amount_str)
+                    if(amount<=0):
+                        print("Amount must be greater than 0.")
+                        continue
                     break
                 except ValueError:
-                    print("Please enter the valid number of value.")
-            
-            description=input("Description (short) : ").strip()
+                    print("Please enter a valid number for amount.")
+                    
+            while True:
+                description=input("Description (short note) : ").strip()
+                if description:
+                    break
+                print("Description cannot be empty.")
             
             add_expense(category, amount, description)
             
-            print("Expence added successfully.")
+            print("Expense added successfully.")
             
         elif choice=="2":
             expenses=get_all_expenses()
@@ -47,12 +58,11 @@ def main():
         elif choice=="3":
             total = get_total_expenses()
             budget = get_budget()
-            expenses = get_remaining_budget()
             remaining = get_remaining_budget()
             category_totals=get_expenses_by_category()
             
             print("=== Summary ===")
-            print("Totak Expenses",total)
+            print("Total Expenses",total)
             print("Budget",budget)
             print("Remaining",remaining)
             
@@ -65,16 +75,20 @@ def main():
             
         elif choice=="4":
             while True:
-                budget_str=input("enter budget (R.S.)").strip()
+                budget_str=input("Enter budget (taka)").strip()
                 try:
                     budget=float(budget_str)
+                    if(budget<=0):
+                        print("Budget must be greater than 0.")
+                        continue
+                    break
                 except ValueError:
                     print("Please enter a valid number for budget.")
                     
-                set_budget(budget)
+            set_budget(budget)
                 
-                print("Budget set successfully")
-                print("Current budget : ",get_budget())
+            print("Budget set successfully")
+            print("Current budget : ",get_budget())
                 
         elif choice =="5":
             print("Goodbye")
@@ -82,7 +96,7 @@ def main():
         
         elif choice=="6":
             filename=export_expenses_to_csv()
-            print("Expences exported to :",filename)
+            print("Expenses exported to :",filename)
                     
         else:
             print("Invalid choice, please try again.")
