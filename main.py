@@ -96,7 +96,8 @@ def main():
         
         elif choice=="6":
             filename=export_expenses_to_csv()
-            print("Expenses exported to :",filename)
+            if filename:
+                print("Expenses exported to :",filename)
                     
         else:
             print("Invalid choice, please try again.")

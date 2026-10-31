@@ -4,11 +4,19 @@ import os
 DATA_FILE="data/expenses.json"
 
 def load_data():  
+    """Load expense data from the JSON file.
+    
+    returns:
+        dict:A dictionary with 'budget' and 'expenses'.  
+    """
     if not os.path.exists(DATA_FILE):
         return { "budget":0, "expenses":[] }
-    
-    with open(DATA_FILE,"r",encoding="utf-8") as f:
-        return (json.load(f))
+    try:
+        with open(DATA_FILE,"r",encoding="utf-8") as f:
+            return (json.load(f))
+    except (json.JSONDecodeError,OSError):
+        print("Warning: Could not read data file. Starting with empty data.")
+        return { "budget":0, "expenses":[] }
     
 def save_data(data):
     with open(DATA_FILE,"w",encoding="utf-8") as f:
@@ -50,7 +58,7 @@ def get_total_expenses():
     total=0
     for exp in data["expenses"]:
         total+=exp["amount"]
-        return total
+    return total
     
 def get_remaining_budget():
     budget=get_budget()
@@ -83,10 +91,14 @@ def export_expenses_to_csv(filename="expenses_export.csv"):
     data=load_data()
     expenses=data["expenses"]
     
-    with open(filename,"w", newline="",encoding="utf-8") as f:
-        writer=csv.DictWriter(f,fieldnames=["date","category","amount","description"])
-        writer.writeheader()
-        
-        for exp in expenses:
-            writer.writerow(exp)
-    return filename
+    try:
+        with open(filename,"w", newline="",encoding="utf-8") as f:
+            writer=csv.DictWriter(f,fieldnames=["date","category","amount","description"])
+            writer.writeheader()
+            
+            for exp in expenses:
+                writer.writerow(exp)
+        return filename
+    except OSError:
+        print("Error: Could not write CSV file.")
+        return None
