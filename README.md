@@ -9,13 +9,17 @@ A simple Python CLI app to track student expenses and budget using JSON storage.
 - View summary (total expenses, budget, remaining)
 - Set monthly budget
 - Category-wise expense summary
+- Input validation for category, amount, and budget
+- Error handling for data file and CSV export
+- Basic automated tests
+- Export expenses to CSV
 
 ## How to run
 
 1. Clone the repo:
 
 ```bash
-git clone [https://github.com/anitasjana/student-expense-tracker.git](https://github.com/anitasjana/student-expense-tracker.git)
+git clone (https://github.com/anitasjana/student-expense-tracker.git)
 ```
 
 2. Go to project folder:
@@ -40,7 +44,8 @@ python main.py
 3. View summary (total, budget, remaining)
 4. Set budget
 5. Exit
-Enter your choice (1/2/3/4/5): 3
+6. Export expenses to CSV
+Enter your choice (1/2/3/4/5/6): 3
 
 === Summary ===
 Total expenses: 120.0
@@ -53,7 +58,6 @@ Food : 120.0
 
 ## Future improvements
 
-- Export expenses to CSV
 - Monthly filtering
 - Simple charts
 - GUI or web interface

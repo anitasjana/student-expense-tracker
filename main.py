@@ -75,7 +75,7 @@ def main():
             
         elif choice=="4":
             while True:
-                budget_str=input("Enter budget (taka)").strip()
+                budget_str=input("Enter budget (taka) :").strip()
                 try:
                     budget=float(budget_str)
                     if(budget<=0):
