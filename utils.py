@@ -102,3 +102,27 @@ def export_expenses_to_csv(filename="expenses_export.csv"):
     except OSError:
         print("Error: Could not write CSV file.")
         return None
+    
+def get_monthly_report(month):
+    data=load_data()
+    total=0
+    categories={}
+    monthly_expenses=[]
+    
+    for exp in data["expenses"]:
+        exp_month=exp["date"][:7]
+        if exp_month==month:
+            total = total + exp["amount"]
+            monthly_expenses.append(exp)
+            
+            category=exp["category"]
+            if category in categories:
+                categories[category] +=exp["amount"]
+            else:
+                categories[category]=exp["amount"]
+                
+    return {
+        "expenses":monthly_expenses,
+        "total":total,
+        "categories":categories          
+    }

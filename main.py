@@ -1,4 +1,4 @@
-from utils import add_expense , get_all_expenses , set_budget ,get_budget, get_total_expenses,get_remaining_budget,get_expenses_by_category,export_expenses_to_csv
+from utils import add_expense , get_all_expenses , set_budget ,get_budget, get_total_expenses,get_remaining_budget,get_expenses_by_category,export_expenses_to_csv,get_monthly_report
 
 def main():
     print("=== Student Expense Tracker ===")
@@ -10,8 +10,9 @@ def main():
         print("4. set budget")
         print("5. Exit")
         print("6. Export expenses to CSV")
+        print("7. Monthly report")
     
-        choice = input("enter your choice (1/2/3/4/5/6) : ").strip()
+        choice = input("enter your choice (1/2/3/4/5/6/7) : ").strip()
         
         if choice=="1":       
             while True:
@@ -98,9 +99,35 @@ def main():
             filename=export_expenses_to_csv()
             if filename:
                 print("Expenses exported to :",filename)
-                    
+
+        elif choice=="7":   
+            month=input("Enter Month(YYYY-MM): ").strip()
+            result = get_monthly_report(month)
+            
+            print("=== Monthly Report ===")
+            print(result["total"])
+            
+            print("\nCategory-wise expenses:")
+            if not result["categories"]:
+                print("No expenses found for this month.")
+            else:
+                for category,amount in result["categories"].items():
+                    print(category, ":" , amount)
+            
+            print("\nExpenses :")
+            if not result["expenses"]:
+                print("No expense found for this month.")
+            else:
+                for exp in result["expenses"]:
+                    print(f"Date : {exp["date"]}")   
+                    print(f"Cagegory : {exp["category"]}")   
+                    print(f"Amount : {exp["amount"]}")   
+                    print(f"Description : {exp["description"]}")   
+                    print("-"*30)
+               
         else:
             print("Invalid choice, please try again.")
+        
         
         
     
